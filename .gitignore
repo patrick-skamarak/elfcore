@@ -1,0 +1,6 @@
+testresults
+nimcache
+*.out
+
+tests/*
+!tests/*Test.nim
