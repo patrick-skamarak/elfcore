@@ -4,3 +4,4 @@ nimcache
 
 tests/*
 !tests/*Test.nim
+!tests/elfTestFile
