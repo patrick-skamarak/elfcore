@@ -1,6 +1,6 @@
 # Package
 
-version       = "1.0.0"
+version       = "1.0.1"
 author        = "patrick-skamarak"
 description   = "An elf file library for nim"
 license       = "MIT"
