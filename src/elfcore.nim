@@ -1,4 +1,4 @@
-import elflib/[fileHeader, programHeader, sectionHeader], streams, json
+import elfcore/[fileHeader, programHeader, sectionHeader], streams, json
 
 type
     Elf32Headers* = object
