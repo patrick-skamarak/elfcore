@@ -22,7 +22,7 @@ proc getFileHeaderCommon*( fileName : string ) : FileHeaderCommon =
 proc getElf32Headers*( fileName : string ) : Elf32Headers =
     # file header commmon
     var fileHeaderCommon = getFileHeaderCommon(fileName)
-    if fileHeaderCommon.format != fhThirtyTwo :
+    if (uint8 fileHeaderCommon.format) != (uint8 fhThirtyTwo) :
         raiseAssert("32 bit header requested but found other.")
     result.fileHeaderCommon = fileHeaderCommon
     var fileStream = openFileStream(fileName, fmRead)
@@ -54,7 +54,7 @@ proc getElf32Headers*( fileName : string ) : Elf32Headers =
 proc getElf64Headers*( fileName : string ) : Elf64Headers =
     # file header commmon
     var fileHeaderCommon = getFileHeaderCommon(fileName)
-    if fileHeaderCommon.format != fhThirtyTwo :
+    if (uint8 fileHeaderCommon.format) != (uint8 fhThirtyTwo) :
         raiseAssert("64 bit header requested but found other.")
     result.fileHeaderCommon = fileHeaderCommon
     var fileStream = openFileStream(fileName, fmRead)

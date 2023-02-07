@@ -41,7 +41,7 @@ type
 
     SectionHeader32* = object
         name* : uint32
-        kind* : SectionHeaderKind
+        kind* : uint32
         flags* : uint32
         virtualAddress* : uint32
         fileImageOffset* : uint32
@@ -53,7 +53,7 @@ type
 
     SectionHeader64* = object
         name* : uint32
-        kind* : SectionHeaderKind
+        kind* : uint32
         flags* : uint64
         virtualAddress* : uint64
         fileImageOffset* : uint64
@@ -66,7 +66,7 @@ type
 proc `%`*( sectionHeader32 : SectionHeader32 ) : JsonNode = 
     result = %{
         "name" : %("0x"&sectionHeader32.name.toHex()),
-        "kind" : %("0x"&(uint32 sectionHeader32.kind).toHex()),
+        "kind" : %("0x"&sectionHeader32.kind.toHex()),
         "flags" : %("0x"&sectionHeader32.flags.toHex()),
         "virtualAddress" : %("0x"&sectionHeader32.virtualAddress.toHex()),
         "fileImageOffset" : %("0x"&sectionHeader32.fileImageOffset.toHex()),
@@ -80,7 +80,7 @@ proc `%`*( sectionHeader32 : SectionHeader32 ) : JsonNode =
 proc `%`*( sectionHeader64 : SectionHeader64 ) : JsonNode = 
     result = %{
         "name" : %("0x"&sectionHeader64.name.toHex()),
-        "kind" : %("0x"&(uint32 sectionHeader64.kind).toHex()),
+        "kind" : %("0x"&sectionHeader64.kind.toHex()),
         "flags" : %("0x"&sectionHeader64.flags.toHex()),
         "virtualAddress" : %("0x"&sectionHeader64.virtualAddress.toHex()),
         "fileImageOffset" : %("0x"&sectionHeader64.fileImageOffset.toHex()),

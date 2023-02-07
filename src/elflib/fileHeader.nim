@@ -24,13 +24,13 @@ type
 
     FileHeaderCommon* = object
         magic* : uint32
-        format* : FileHeaderFormat
-        endianness* : FileHeaderEndianness
+        format* : uint8
+        endianness* : uint8
         elfVersion* : uint8
         targetOsAbi* : uint8
         abiVersion* : uint8
         pad* : array[7, uint8]
-        kind* : FileHeaderKind
+        kind* : uint16
         targetArchitecture* : uint16
         elfVersion2* : uint32
 
@@ -59,10 +59,16 @@ type
         sectionHeaderTableIndex* : uint16
 
 proc isValidHeader*( fileHeaderCommon : FileHeaderCommon ) : bool =
-    if fileHeaderCommon.magic != ELF_MAGIC : return false
-    if fileHeaderCommon.elfVersion != fileHeaderCommon.elfVersion2 : return false
-    if not (fileHeaderCommon.format in FileHeaderFormat.low..FileHeaderFormat.high) : return false
-    if not (fileHeaderCommon.endianness in FileHeaderEndianness.low..FileHeaderEndianness.high) : return false
+    if fileHeaderCommon.magic != ELF_MAGIC : 
+        return false
+    if fileHeaderCommon.elfVersion != fileHeaderCommon.elfVersion2 : 
+        return false
+    if (FileHeaderFormat fileHeaderCommon.format) != fhThirtyTwo and 
+        (FileHeaderFormat fileHeaderCommon.format) != fhSixtyFour : 
+            return false
+    if (FileHeaderEndianness fileHeaderCommon.endianness) != fhLittle and 
+        (FileHeaderEndianness fileHeaderCommon.endianness) != fhBig : 
+            return false
     return true
 
 proc `%`*( fileHeaderCommon : FileHeaderCommon ) : JsonNode = 

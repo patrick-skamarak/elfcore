@@ -16,7 +16,7 @@ type
         phProcessHighBound = 0x7FFFFFFF'u32 #
     
     ProgramHeader32* = object
-        kind* : ProgramHeaderKind
+        kind* : uint32
         offsetInFileImage* : uint32
         addressInMemory* : uint32
         physicalAddress* : uint32
@@ -27,7 +27,7 @@ type
         alignment* : uint32
 
     ProgramHeader64* = object
-        kind* : ProgramHeaderKind
+        kind* : uint32
         flags* : uint32
         offsetInFileImage* : uint64
         addressInMemory* : uint64
@@ -39,7 +39,7 @@ type
 
 proc `%`*( programHeader32 : ProgramHeader32 ) : JsonNode = 
     result = %{
-        "kind" : %("0x"&(uint32 programHeader32.kind).toHex()),
+        "kind" : %("0x"&programHeader32.kind.toHex()),
         "offsetInFileImage" : %("0x"&programHeader32.offsetInFileImage.toHex()),
         "addressInMemory" : %("0x"&programHeader32.addressInMemory.toHex()),
         "physicalAddress" : %("0x"&programHeader32.physicalAddress.toHex()),
@@ -51,7 +51,7 @@ proc `%`*( programHeader32 : ProgramHeader32 ) : JsonNode =
 
 proc `%`*( programHeader64 : ProgramHeader64 ) : JsonNode = 
     result = %{
-        "kind" : %("0x"&(uint32 programheader64.kind).toHex()),
+        "kind" : %("0x"&programheader64.kind.toHex()),
         "flags" : %("0x"&programheader64.flags.toHex()),
         "offsetInFileImage" : %("0x"&programheader64.offsetInFileImage.toHex()),
         "addressInMemory" : %("0x"&programheader64.addressInMemory.toHex()),
